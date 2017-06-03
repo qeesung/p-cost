@@ -23,6 +23,7 @@
     "mocha": "^3.4.2"
   },
   "dependencies": {
+    "bunyan": "^1.8.10",
     "chai": "^4.0.1",
     "colors": "^1.1.2"
   }
