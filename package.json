@@ -1,0 +1,22 @@
+{
+  "name": "p-cost",
+  "version": "1.0.0",
+  "description": "Measure the time a promise take to resolve",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sindresorhus/p-time.git"
+  },
+  "keywords": [
+    "promise"
+  ],
+  "author": "qeesung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sindresorhus/p-time/issues"
+  },
+  "homepage": "https://github.com/sindresorhus/p-time#readme"
+}
