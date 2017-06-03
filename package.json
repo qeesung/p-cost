@@ -25,6 +25,7 @@
   "dependencies": {
     "bunyan": "^1.8.10",
     "chai": "^4.0.1",
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "nodemailer": "^4.0.1"
   }
 }
