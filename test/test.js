@@ -12,26 +12,79 @@ function hello(name, cb) {
   cb("hello " + name);
 }
 
-describe("default timeout", function () {
-  it("it promise resolve time exceed 1000ms, notify function will be called", function () {
-    let notifyMockFn = sinon.spy();
-    return new Promise(resolve => {
-      setTimeout(resolve, 1000);
-    }, {notifier: {
-      notify: notifyMockFn
-    }}).then(() => {
-      notifyMockFn.should.have.been.calledOnce;
+describe("Promise cost", () => {
+  describe("default timeout", () => {
+    it("it promise resolve time exceed 1000ms, notify function will be called",  () => {
+      let notifyMockFn = sinon.spy();
+      return new Promise(resolve => {
+        setTimeout(resolve, 1000);
+      }, {notifier: {
+        notify: notifyMockFn
+      }}).then(() => {
+        notifyMockFn.should.have.been.calledOnce;
+      });
+    });
+
+    it("it promise resolve time less than 1000ms, notify function will not be called", () => {
+      let notifyMockFn = sinon.spy();
+      return new Promise(resolve => {
+        setTimeout(resolve, 800);
+      }, {notifier: {
+        notify: notifyMockFn
+      }}).then(() => {
+        notifyMockFn.should.have.not.been.called;
+      });
     });
   });
 
-  it("it promise resolve time less than 1000ms, notify function will not be called", function () {
-    let notifyMockFn = sinon.spy();
-    return new Promise(resolve => {
-      setTimeout(resolve, 800);
-    }, {notifier: {
-      notify: notifyMockFn
-    }}).then(() => {
-      notifyMockFn.should.have.not.been.called;
+  describe("config timeout", () => {
+    it("config timeout to 2000ms, because the cost is 1000ms , notify function will not be called", () => {
+      let notifyMockFn = sinon.spy();
+      return new Promise(resolve => {
+        setTimeout(resolve, 1000);
+      }, {
+        timeout: 2000,
+        notifier: {
+          notify: notifyMockFn
+      }}).then(() => {
+        notifyMockFn.should.have.not.been.called;
+      });
+    });
+
+    it("config timeout to 200ms, because the cost is 500ms , notify function will be called", () => {
+      let notifyMockFn = sinon.spy();
+      return new Promise(resolve => {
+        setTimeout(resolve, 500);
+      }, {
+        timeout: 200,
+        notifier: {
+          notify: notifyMockFn
+        }}).then(() => {
+        notifyMockFn.should.have.been.calledOnce;
+      });
+    });
+  });
+
+  describe("promise chain", () => {
+    it("every promise in the promise chain will cost more that 100ms, " +
+      "notify function should be called multi times", function() {
+      this.timeout(5000);
+      let notifyMockFn = sinon.spy();
+      return new Promise((resolve) => {                // promise1 here , will cost 200ms
+        setTimeout(resolve, 200);
+      }, {
+        timeout: 100,
+        notifier: {
+          notify: notifyMockFn
+        }
+      }).then(() => {                                  // promise2 here, will cost long time
+        // some heavy cpu work, cost long time here
+        for(let i = 0; i < 100000; i++) {
+          for(let j = 0; j< 10000; j++);
+        }
+      }).then(() => {
+        notifyMockFn.should.have.been.calledTwice;
+      });
     });
   });
 });
