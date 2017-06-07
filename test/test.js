@@ -87,6 +87,37 @@ describe("Promise cost", () => {
       });
     });
   });
+
+  describe("promise reject", () => {
+    it("reject the promise in 1000ms, notify should also work", () => {
+      let notifyMockFn = sinon.spy();
+      return new Promise((resolve, reject) => { // notify function only called here
+        setTimeout(reject, 1000);
+      }, {
+        notifier:{
+          notify: notifyMockFn
+        },
+      }).catch(() => {
+      }).then(() => {
+        notifyMockFn.should.have.been.calledOnce;
+      });
+    });
+
+    it("reject the promise in 1000ms, and sum the time cost,  notify should multi times", () => {
+      let notifyMockFn = sinon.spy();
+      return new Promise((_, reject) => { // notify called here #1
+        setTimeout(reject, 1000);
+      }, {
+        sum: true,
+        notifier: {
+          notify: notifyMockFn
+        }
+      }).catch(() => { // notify called here #2
+      }).then(() => {
+        notifyMockFn.should.have.been.calledTwice;
+      })
+    });
+  });
 });
 
 
