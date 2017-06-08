@@ -8,10 +8,6 @@ const sinonChai = require("sinon-chai");
 chai.should();
 chai.use(sinonChai);
 
-function hello(name, cb) {
-  cb("hello " + name);
-}
-
 describe("Promise cost", () => {
   describe("default timeout", () => {
     it("it promise resolve time exceed 1000ms, notify function will be called",  () => {
