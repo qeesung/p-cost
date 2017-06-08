@@ -11,7 +11,7 @@ new Promise((resolve) => {
 new Promise((resolve) => {
   setTimeout(resolve, 1000);
 }, {name: "stdout-1000"});
-//output: stdout-1000 ==> 1003ms at /p-cost/examples/stdout.example.js:6
+//output: stdout-1000 ==> 1003ms at /p-cost/examples/stdout.example.js:11
 
 new Promise((resolve) => {
   setTimeout(resolve, 500);
