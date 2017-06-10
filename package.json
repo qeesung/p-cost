@@ -4,7 +4,7 @@
   "description": "Measure the time a promise take to resolve",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
