@@ -17,7 +17,7 @@ So I extend the ES6 Promise to resolve this problem.
 ### basic usage
 
 ```node
-new Promise((resolve) => {
+new Promise(resolve => {
   setTimeout(resolve, 1000);
 });
 //output: anonymous ==> 1004ms at /p-cost/examples/stdout.example.js:6
@@ -25,7 +25,7 @@ new Promise((resolve) => {
 
 ### custom name
 ```node
-new Promise((resolve) => {
+new Promise(resolve => {
   setTimeout(resolve, 1000);
 }, {name: "p-cost"});
 //output: p-cost ==> 1003ms at /p-cost/examples/stdout.example.js:11
@@ -52,7 +52,7 @@ new Promise(resolve => {
 ### custom notifier
 
 ```node
-new Promise((resolve) => {
+new Promise(resolve => {
   setTimeout(resolve, 1000);
 }, {
   name: "bunyan1000",
@@ -80,3 +80,30 @@ new Promise((resolve) => {
 ```
 
 more examples can be found in [example](https://github.com/qeesung/p-cost/tree/master/examples) directory
+
+## Usage
+
+```node
+new Promise((resolve, reject) => {}, options);
+```
+### options
+
+```node
+{
+  name: "hello",
+  timeout: 500,
+  sum: true,
+  notifer: {
+    notify: () => {}
+    notifyOpt: {}
+  }
+}
+```
+
+| name |type| required | default |description | 
+|:-:|:-:|:-:|:-:| :-- |
+| timeout |boolean| false | 1000 | if promise resolved time exceed `timeout`ms, notify function will be called |
+| name | string | false | "anonymous" | promise name |
+| sum | boolean | false | false | if sum the time cost in same promise chain |
+| notifier.notify | function | false | stdoutNotifier | the way to notify user if `timeout` |
+| notifier.notifyOpt | object | false | null | will pass to `notifier.notify` function as argument |
