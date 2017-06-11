@@ -8,3 +8,11 @@ install:
   
 script:
   - npm run test
+
+
+deploy:
+  provider: npm
+  email: 1245712564@qq.com
+  api_key: $NPM_TOKEN
+  on:
+    tags: true
