@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sindresorhus/p-time.git"
+    "url": "git+https://github.com/qeesung/p-cost.git"
   },
   "keywords": [
     "promise"
@@ -16,9 +16,9 @@
   "author": "qeesung",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sindresorhus/p-time/issues"
+    "url": "https://github.com/qeesung/p-cost/issues"
   },
-  "homepage": "https://github.com/sindresorhus/p-time#readme",
+  "homepage": "https://github.com/qeesung/p-cost#readme",
   "devDependencies": {
     "chai": "^4.0.1",
     "mocha": "^3.4.2",
